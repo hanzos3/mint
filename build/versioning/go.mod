@@ -1,4 +1,4 @@
-module mint.minio.io/versioning/tests
+module mint.hanzos3.io/versioning/tests
 
 go 1.25
 

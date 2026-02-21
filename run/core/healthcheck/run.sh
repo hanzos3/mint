@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#  Mint (C) 2019 Minio, Inc.
+#  Mint (C) 2019 Hanzo AI, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.

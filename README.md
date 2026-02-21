@@ -1,6 +1,6 @@
-# Mint [![Slack](https://slack.minio.io/slack?type=svg)](https://slack.minio.io) [![Docker Pulls](https://img.shields.io/docker/pulls/minio/mint.svg?maxAge=604800)](https://hub.docker.com/r/minio/mint/)
+# Hanzo S3 Mint (Integration Test Suite) [![Docker Pulls](https://img.shields.io/docker/pulls/hanzos3/mint.svg?maxAge=604800)](https://hub.docker.com/r/hanzos3/mint/)
 
-Mint is a testing framework for Minio object server, available as a podman image. It runs correctness, benchmarking and stress tests. Following are the SDKs/tools used in correctness tests.
+Mint is the integration test suite for [Hanzo S3](https://github.com/hanzoai/s3), available as a podman image. It runs correctness, benchmarking and stress tests. Following are the SDKs/tools used in correctness tests.
 
 - awscli
 - aws-sdk-go-v2
@@ -21,11 +21,11 @@ Mint is a testing framework for Minio object server, available as a podman image
 
 Mint is run by `podman run` command which requires Podman to be installed. For Podman installation follow the steps [here](https://podman.io/getting-started/installation#installing-on-linux).
 
-To run Mint with Minio Play server as test target,
+To run Mint against a Hanzo S3 server,
 
 ```sh
-$ podman run -e SERVER_ENDPOINT=play.minio.io:9000 -e ACCESS_KEY=Q3AM3UQ867SPQQA43P2F \
-             -e SECRET_KEY=zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG -e ENABLE_HTTPS=1 minio/mint
+$ podman run -e SERVER_ENDPOINT=your-s3-server:9000 -e ACCESS_KEY=YOUR_ACCESS_KEY \
+             -e SECRET_KEY=YOUR_SECRET_KEY -e ENABLE_HTTPS=1 hanzos3/mint
 ```
 
 After the tests are run, output is stored in `/mint/log` directory inside the container. To get these logs, use `podman cp` command. For example
@@ -39,28 +39,28 @@ Below environment variables are required to be passed to the podman container. S
 
 | Environment variable   | Description                                                                                                                                    | Example                                    |
 |:-----------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------|
-| `SERVER_ENDPOINT`      | Endpoint of Minio server in the format `HOST:PORT`; for virtual style `IP:PORT`                                                                | `play.minio.io:9000`                       |
+| `SERVER_ENDPOINT`      | Endpoint of Hanzo S3 server in the format `HOST:PORT`; for virtual style `IP:PORT`                                                             | `your-s3-server:9000`                      |
 | `ACCESS_KEY`           | Access key for `SERVER_ENDPOINT` credentials                                                                                                   | `Q3AM3UQ867SPQQA43P2F`                     |
 | `SECRET_KEY`           | Secret Key for `SERVER_ENDPOINT` credentials                                                                                                   | `zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG` |
 | `ENABLE_HTTPS`         | (Optional) Set `1` to indicate to use HTTPS to access `SERVER_ENDPOINT`. Defaults to `0` (HTTP)                                                | `1`                                        |
 | `MINT_MODE`            | (Optional) Set mode indicating what category of tests to be run by values `core`, `full`. Defaults to `core`                                   | `full`                                     |
-| `MINT_MC_VARIANT`      | (Optional) Select `mc` test variant by values `mc`, `ec`. Defaults to `mc`. (Using `ec` requires providing the `ec` repo in the container.)    | `ec`                                       |                               |
-| `DOMAIN`               | (Optional) Value of MINIO_DOMAIN environment variable used in Minio server                                                                     | `myminio.com`                              |
+| `MINT_MC_VARIANT`      | (Optional) Select `mc` test variant by values `mc`, `ec`. Defaults to `mc`. (Using `ec` requires providing the `ec` repo in the container.)    | `ec`                                       |
+| `DOMAIN`               | (Optional) Value of S3_DOMAIN environment variable used in Hanzo S3 server                                                                     | `myminio.com`                              |
 | `ENABLE_VIRTUAL_STYLE` | (Optional) Set `1` to indicate virtual style access . Defaults to `0` (Path style)                                                             | `1`                                        |
 | `RUN_ON_FAIL`          | (Optional) Set `1` to indicate execute all tests independent of failures (currently implemented for minio-go and minio-java) . Defaults to `0` | `1`                                        |
 | `SERVER_REGION`        | (Optional) Set custom region for region specific tests                                                                                         | `us-west-1`                                |
 
-### Test virtual style access against Minio server
+### Test virtual style access against Hanzo S3 server
 
-To test Minio server virtual style access with Mint, follow these steps:
+To test Hanzo S3 server virtual style access with Mint, follow these steps:
 
-- Set a domain in your Minio server using environment variable MINIO_DOMAIN. For example `export MINIO_DOMAIN=myminio.com`.
-- Start Minio server.
-- Execute Mint against Minio server (with `MINIO_DOMAIN` set to `myminio.com`) using this command
+- Set a domain in your Hanzo S3 server using environment variable S3_DOMAIN. For example `export S3_DOMAIN=myminio.com`.
+- Start Hanzo S3 server.
+- Execute Mint against the server (with `S3_DOMAIN` set to `myminio.com`) using this command
 ```sh
 $ podman run -e "SERVER_ENDPOINT=192.168.86.133:9000" -e "DOMAIN=minio.com"  \
 	     -e "ACCESS_KEY=minio" -e "SECRET_KEY=minio123" -e "ENABLE_HTTPS=0" \
-	     -e "ENABLE_VIRTUAL_STYLE=1" minio/mint
+	     -e "ENABLE_VIRTUAL_STYLE=1" hanzos3/mint
 ```
 
 ### Mint log format
@@ -85,10 +85,10 @@ All test logs are stored in `/mint/log/log.json` as multiple JSON document.  Bel
 After making changes to Mint source code a local podman image can be built/run by
 
 ```sh
-$ podman build -t minio/mint . -f Dockerfile
-$ podman run -e SERVER_ENDPOINT=play.minio.io:9000 -e ACCESS_KEY=Q3AM3UQ867SPQQA43P2F \
-             -e SECRET_KEY=zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG \
-             -e ENABLE_HTTPS=1 -e MINT_MODE=full minio/mint:latest
+$ podman build -t hanzos3/mint . -f Dockerfile
+$ podman run -e SERVER_ENDPOINT=your-s3-server:9000 -e ACCESS_KEY=YOUR_ACCESS_KEY \
+             -e SECRET_KEY=YOUR_SECRET_KEY \
+             -e ENABLE_HTTPS=1 -e MINT_MODE=full hanzos3/mint:latest
 ```
 
 
@@ -96,14 +96,14 @@ $ podman run -e SERVER_ENDPOINT=play.minio.io:9000 -e ACCESS_KEY=Q3AM3UQ867SPQQA
 
 Below are the steps need to be followed
 
-- Create new app directory under [build](https://github.com/minio/mint/tree/master/build) and [run/core](https://github.com/minio/mint/tree/master/run/core) directories.
+- Create new app directory under [build](https://github.com/hanzos3/mint/tree/master/build) and [run/core](https://github.com/hanzos3/mint/tree/master/run/core) directories.
 - Create `install.sh` which does installation of required tool/SDK under app directory.
-- Any build and install time dependencies should be added to [install-packages.list](https://github.com/minio/mint/blob/master/install-packages.list).
-- Build time dependencies should be added to [remove-packages.list](https://github.com/minio/mint/blob/master/remove-packages.list) for removal to have clean Mint podman image.
+- Any build and install time dependencies should be added to [install-packages.list](https://github.com/hanzos3/mint/blob/master/install-packages.list).
+- Build time dependencies should be added to [remove-packages.list](https://github.com/hanzos3/mint/blob/master/remove-packages.list) for removal to have clean Mint podman image.
 - Add `run.sh` in app directory under `run/core` which execute actual tests.
 
 #### Test data
-Tests may use pre-created data set to perform various object operations on Minio server.  Below data files are available under `/mint/data` directory.
+Tests may use pre-created data set to perform various object operations on Hanzo S3 server.  Below data files are available under `/mint/data` directory.
 
 | File name        | Size    |
 |:-----------------|:--------|

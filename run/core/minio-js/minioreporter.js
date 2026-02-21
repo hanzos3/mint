@@ -1,5 +1,5 @@
 /*
- * Minio Reporter for JSON formatted logging, (C) 2017 Minio, Inc.
+ * Hanzo S3 Reporter for JSON formatted logging, (C) 2017 Hanzo AI, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

@@ -1,4 +1,4 @@
-module mint.minio.io/healthcheck
+module mint.hanzos3.io/healthcheck
 
 go 1.25
 

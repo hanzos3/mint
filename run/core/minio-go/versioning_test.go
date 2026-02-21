@@ -2,7 +2,7 @@
 
 /*
 *
-*  Mint, (C) 2025 Minio, Inc.
+*  Mint, (C) 2025 Hanzo AI, Inc.
 *
 *  Licensed under the Apache License, Version 2.0 (the "License");
 *  you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ func testBucketVersioningExcludedPrefixes() {
 	testName := "testBucketVersioningExcludedPrefixes"
 	function := "GetBucketVersioning/SetBucketVersioning"
 
-	// Initialize minio client
+	// Initialize S3 client
 	endpoint := os.Getenv("SERVER_ENDPOINT")
 	accessKey := os.Getenv("ACCESS_KEY")
 	secretKey := os.Getenv("SECRET_KEY")
@@ -51,7 +51,7 @@ func testBucketVersioningExcludedPrefixes() {
 		Secure: secure,
 	})
 	if err != nil {
-		logError(testName, function, nil, startTime, "", "MinIO client creation failed", err)
+		logError(testName, function, nil, startTime, "", "S3 client creation failed", err)
 		return
 	}
 

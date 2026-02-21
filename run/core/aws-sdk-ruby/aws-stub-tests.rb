@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-#  Mint (C) 2017 Minio, Inc.
+#  Mint (C) 2017 Hanzo AI, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -22,12 +22,12 @@ require 'multipart_body'
 
 # For aws-sdk ruby tests to run, setting the following
 # environment variables is mandatory.
-# SERVER_ENDPOINT: <ip:port> address of the minio server tests will run against
-# ACCESS_KEY: access key for the minio server
-# SECRET_KEY: secreet key for the minio server
-# SERVER_REGION: region minio server is setup to run
+# SERVER_ENDPOINT: <ip:port> address of the Hanzo S3 server tests will run against
+# ACCESS_KEY: access key for the Hanzo S3 server
+# SECRET_KEY: secreet key for the Hanzo S3 server
+# SERVER_REGION: region Hanzo S3 server is setup to run
 # ENABLE_HTTPS: (1|0) turn on/off to specify https or
-#                 http services minio server is running on
+#                 http services Hanzo S3 server is running on
 # MINT_DATA_DIR: Data directory where test data files are stored
 
 class AwsSdkRubyTest
@@ -36,7 +36,7 @@ class AwsSdkRubyTest
 
   # Region information, eg. "us-east-1"
   region = ENV['SERVER_REGION'] ||= 'SERVER_REGION is not set'
-  # Minio server, eg. "play.minio.io:9000"
+  # Hanzo S3 server endpoint
   access_key_id = ENV['ACCESS_KEY'] ||= 'ACCESS_KEY is not set'
   secret_access_key = ENV['SECRET_KEY'] ||= 'SECRET_KEY is not set'
   enable_https = ENV['ENABLE_HTTPS']

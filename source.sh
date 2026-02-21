@@ -1,6 +1,6 @@
 #!/bin/bash -e
 #
-#  Minio Cloud Storage, (C) 2024 Minio, Inc.
+#  Hanzo S3, (C) 2024 Hanzo AI, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.

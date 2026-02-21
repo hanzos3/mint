@@ -12,9 +12,9 @@ New tests are added into `s3select/tests.py` as new functions.
 ```bash
 export MINT_DATA_DIR=~/my-mint-dir
 export MINT_MODE=core
-export SERVER_ENDPOINT="play.min.io"
-export ACCESS_KEY="Q3AM3UQ867SPQQA43P2F"
-export SECRET_KEY="zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG"
+export SERVER_ENDPOINT="your-s3-server:9000"
+export ACCESS_KEY="YOUR_ACCESS_KEY"
+export SECRET_KEY="YOUR_SECRET_KEY"
 export ENABLE_HTTPS=1
 export SERVER_REGION=us-east-1
 ./run.sh /tmp/output.log /tmp/error.log

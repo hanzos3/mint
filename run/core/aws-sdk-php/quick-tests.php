@@ -1,6 +1,6 @@
 <?php
 #
-#  Mint, (C) 2023 Minio, Inc.
+#  Mint, (C) 2023 Hanzo AI, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -311,7 +311,7 @@ function testListMultipartUploads($s3Client, $params) {
 	}
 
 	// ListMultipartUploads and ListParts may return empty
-	// responses in the case of minio gateway gcs and minio server
+	// responses in the case of Hanzo S3 gateway gcs and Hanzo S3 server
 	// FS mode. So, the following tests don't make assumptions on
 	// result response.
 	$paginator = $s3Client->getPaginator('ListMultipartUploads',
@@ -805,7 +805,7 @@ function testBucketPolicy($s3Client, $params) {
 	    $bucket);
 
     // Delete the bucket, make the bucket (again) and check if policy is none
-    // Ref: https://github.com/minio/minio/issues/4714
+    // Ref: https://github.com/hanzoai/s3/issues/4714
     $result = $s3Client->deleteBucket(['Bucket' => $bucket]);
     if (getstatuscode($result) != HTTP_NOCONTENT)
 	throw new Exception('deleteBucket API failed for ' .
@@ -820,7 +820,7 @@ function testBucketPolicy($s3Client, $params) {
 	}
     }
 
-    // Sleep is needed for Minio Gateway for Azure, ref:
+    // Sleep is needed for Hanzo S3 Gateway for Azure, ref:
     // https://docs.microsoft.com/en-us/rest/api/storageservices/Delete-Container#remarks
     sleep(40);
 

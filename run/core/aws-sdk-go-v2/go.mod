@@ -1,4 +1,4 @@
-module mint.minio.io/aws-sdk-go-v2
+module mint.hanzos3.io/aws-sdk-go-v2
 
 go 1.25.0
 
