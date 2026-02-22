@@ -59,7 +59,7 @@ To test Hanzo S3 server virtual style access with Mint, follow these steps:
 - Execute Mint against the server (with `S3_DOMAIN` set to `myminio.com`) using this command
 ```sh
 $ podman run -e "SERVER_ENDPOINT=192.168.86.133:9000" -e "DOMAIN=minio.com"  \
-	     -e "ACCESS_KEY=minio" -e "SECRET_KEY=minio123" -e "ENABLE_HTTPS=0" \
+	     -e "ACCESS_KEY=hanzo" -e "SECRET_KEY=hanzo123" -e "ENABLE_HTTPS=0" \
 	     -e "ENABLE_VIRTUAL_STYLE=1" hanzos3/mint
 ```
 
