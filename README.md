@@ -9,10 +9,10 @@ Mint is the integration test suite for [Hanzo S3](https://github.com/hanzoai/s3)
 - aws-sdk-ruby
 - healthcheck
 - mc
-- minio-go
-- minio-java
-- minio-js
-- minio-py
+- hanzo-go
+- hanzo-java
+- hanzo-js
+- hanzo-py
 - s3cmd
 - s3select
 - versioning
@@ -45,20 +45,20 @@ Below environment variables are required to be passed to the podman container. S
 | `ENABLE_HTTPS`         | (Optional) Set `1` to indicate to use HTTPS to access `SERVER_ENDPOINT`. Defaults to `0` (HTTP)                                                | `1`                                        |
 | `MINT_MODE`            | (Optional) Set mode indicating what category of tests to be run by values `core`, `full`. Defaults to `core`                                   | `full`                                     |
 | `MINT_MC_VARIANT`      | (Optional) Select `mc` test variant by values `mc`, `ec`. Defaults to `mc`. (Using `ec` requires providing the `ec` repo in the container.)    | `ec`                                       |
-| `DOMAIN`               | (Optional) Value of S3_DOMAIN environment variable used in Hanzo S3 server                                                                     | `myminio.com`                              |
+| `DOMAIN`               | (Optional) Value of S3_DOMAIN environment variable used in Hanzo S3 server                                                                     | `s3.example.com`                           |
 | `ENABLE_VIRTUAL_STYLE` | (Optional) Set `1` to indicate virtual style access . Defaults to `0` (Path style)                                                             | `1`                                        |
-| `RUN_ON_FAIL`          | (Optional) Set `1` to indicate execute all tests independent of failures (currently implemented for minio-go and minio-java) . Defaults to `0` | `1`                                        |
+| `RUN_ON_FAIL`          | (Optional) Set `1` to indicate execute all tests independent of failures (currently implemented for hanzo-go and hanzo-java) . Defaults to `0` | `1`                                        |
 | `SERVER_REGION`        | (Optional) Set custom region for region specific tests                                                                                         | `us-west-1`                                |
 
 ### Test virtual style access against Hanzo S3 server
 
 To test Hanzo S3 server virtual style access with Mint, follow these steps:
 
-- Set a domain in your Hanzo S3 server using environment variable S3_DOMAIN. For example `export S3_DOMAIN=myminio.com`.
+- Set a domain in your Hanzo S3 server using environment variable S3_DOMAIN. For example `export S3_DOMAIN=s3.example.com`.
 - Start Hanzo S3 server.
-- Execute Mint against the server (with `S3_DOMAIN` set to `myminio.com`) using this command
+- Execute Mint against the server (with `S3_DOMAIN` set to `s3.example.com`) using this command
 ```sh
-$ podman run -e "SERVER_ENDPOINT=192.168.86.133:9000" -e "DOMAIN=minio.com"  \
+$ podman run -e "SERVER_ENDPOINT=192.168.86.133:9000" -e "DOMAIN=s3.example.com"  \
 	     -e "ACCESS_KEY=hanzo" -e "SECRET_KEY=hanzo123" -e "ENABLE_HTTPS=0" \
 	     -e "ENABLE_VIRTUAL_STYLE=1" hanzos3/mint
 ```
